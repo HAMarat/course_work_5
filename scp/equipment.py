@@ -36,22 +36,22 @@ class Equipment:
         self.equipment = self._get_equipment_data()
 
     def get_weapon(self, weapon_name):
-        for weapon in self.equipment.weapon:
-            if weapon == weapon_name:
+        for weapon in self.equipment.weapons:
+            if weapon.name == weapon_name:
                 return weapon
         return None
 
     def get_armor(self, armor_name):
-        for armor in self.equipment.armor:
-            if armor == armor_name:
+        for armor in self.equipment.armors:
+            if armor.name == armor_name:
                 return armor
         return None
 
     def get_weapon_names(self):
-        return [weapon.name for weapon in self.equipment.weapon]
+        return [weapon.name for weapon in self.equipment.weapons]
 
     def get_armor_names(self):
-        return [armor.name for armor in self.equipment.armor]
+        return [armor.name for armor in self.equipment.armors]
 
     def _get_equipment_data(self):
         with open('./data/equipment.json', 'r', encoding='utf8') as file:
