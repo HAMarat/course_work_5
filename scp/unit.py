@@ -22,7 +22,7 @@ class BaseUnit(ABC):
         self.armor = armor
 
     def _count_damage(self, target):
-        self.stamina -= self.weapon.stamina_per_turn
+        self.stamina -= self.weapon.stamina_per_hit
         damage = self.weapon.damage * self.unit_class.attack
 
         if target.stamina >= target.armor.stamina_per_turn * target.unit_class.stamina:
@@ -52,7 +52,7 @@ class BaseUnit(ABC):
 
 class PlayerUnit(BaseUnit):
     def hit(self, target: BaseUnit):
-        if self.stamina < self.weapon.stamina_per_turn:
+        if self.stamina < self.weapon.stamina_per_hit:
             return f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости."
 
         damage = self._count_damage(target)
@@ -68,7 +68,7 @@ class EnemyUnit(BaseUnit):
         if not self.is_skill_used and self.stamina >= self.unit_class.skill.stamina and randint(0, 100) < 10:
             return self.use_skill(target)
 
-        if self.stamina < self.weapon.stamina_per_turn:
+        if self.stamina < self.weapon.stamina_per_hit:
             return f"{self.name} попытался использовать {self.weapon.name}, но у него не хватило выносливости."
 
         damage = self._count_damage(target)
