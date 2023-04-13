@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from skills import Skill, FuryPunch, PowerfulThrust
+from scp.skills import Skill, FuryPunch, PowerfulThrust
 
 
 @dataclass

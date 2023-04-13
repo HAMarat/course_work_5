@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from random import uniform
 import marshmallow_dataclass
 
+from scp.constants import FILE_PATH
 
 @dataclass
 class Weapon:
@@ -54,7 +55,7 @@ class Equipment:
         return [armor.name for armor in self.equipment.armors]
 
     def _get_equipment_data(self):
-        with open('./data/equipment.json', 'r', encoding='utf8') as file:
+        with open(FILE_PATH, 'r', encoding='utf8') as file:
             data = json.load(file)
             equipment_schema = marshmallow_dataclass.class_schema(EquipmentData)
             return equipment_schema().load(data)

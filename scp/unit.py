@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from random import randint
 
-from classes import UnitClass
-from equipment import Weapon, Armor
+from scp.classes import UnitClass
+from scp.equipment import Weapon, Armor
 
 
 class BaseUnit(ABC):

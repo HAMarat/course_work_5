@@ -1,9 +1,9 @@
 from flask import Flask, render_template, url_for, request, redirect
 
-from arena import Arena
-from classes import unit_classes
-from equipment import Equipment
-from unit import PlayerUnit, EnemyUnit
+from scp.arena import Arena
+from scp.classes import unit_classes
+from scp.equipment import Equipment
+from scp.unit import PlayerUnit, EnemyUnit
 
 app = Flask(__name__)
 

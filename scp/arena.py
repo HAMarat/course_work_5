@@ -1,4 +1,4 @@
-from unit import PlayerUnit, EnemyUnit
+from scp.unit import PlayerUnit, EnemyUnit
 
 
 class ArenaSingleton(type):
