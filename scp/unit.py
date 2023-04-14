@@ -15,6 +15,13 @@ class BaseUnit(ABC):
         self.armor = None
         self.is_skill_used = False
 
+    @property
+    def round_hp(self):
+        return round(self.hp, 1)
+
+    def round_stamina(self):
+        return round(self.stamina, 1)
+
     def equip_weapon(self, weapon: Weapon):
         self.weapon = weapon
 
@@ -23,6 +30,7 @@ class BaseUnit(ABC):
 
     def _count_damage(self, target):
         self.stamina -= self.weapon.stamina_per_hit
+
         damage = self.weapon.damage * self.unit_class.attack
 
         if target.stamina >= target.armor.stamina_per_turn * target.unit_class.stamina:
@@ -30,12 +38,15 @@ class BaseUnit(ABC):
             damage -= target.armor.defence * self.unit_class.armor
 
         damage = round(damage, 1)
+
         target.get_damage(damage)
         return damage
 
     def get_damage(self, damage):
         if damage > 0:
             self.hp -= damage
+            if self.hp < 0:
+                self.hp = 0
 
     def use_skill(self, target):
         if self.is_skill_used:
@@ -58,7 +69,7 @@ class PlayerUnit(BaseUnit):
         damage = self._count_damage(target)
         if damage > 0:
             return f"{self.name}, используя {self.weapon.name}, пробивает {target.armor.name} соперника и " \
-                   f"наносит {self._count_damage(target)} урона."
+                   f"наносит {damage} урона."
         return f"{self.name}, используя {self.weapon.name}, наносит удар, " \
                f"но {target.armor.name} соперника его останавливает."
 
@@ -74,6 +85,6 @@ class EnemyUnit(BaseUnit):
         damage = self._count_damage(target)
         if damage > 0:
             return f"{self.name}, используя {self.weapon.name}, пробивает {target.armor.name} соперника и " \
-                   f"наносит {self._count_damage(target)} урона."
+                   f"наносит {damage} урона."
         return f"{self.name}, используя {self.weapon.name}, наносит удар, " \
                f"но {target.armor.name} соперника его останавливает."

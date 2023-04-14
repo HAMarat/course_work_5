@@ -7,7 +7,7 @@ from scp.unit import PlayerUnit, EnemyUnit
 
 app = Flask(__name__)
 
-heroes = {
+heroes: dict = {
     'player': None,
     'enemy': None
 }
@@ -42,7 +42,6 @@ def choose_hero():
         weapon_name = request.form['weapon']
         armor_name = request.form['armor']
         unit_class = request.form['unit_class']
-        print(armor_name)
 
         player = PlayerUnit(name=name, unit_class=unit_classes.get(unit_class))
 
@@ -90,7 +89,6 @@ def choose_enemy():
 @app.route("/fight")
 def start_fight():
     arena.start_game(player=heroes['player'], enemy=heroes['enemy'])
-    print(heroes)
     return render_template("fight.html", heroes=heroes)
 
 

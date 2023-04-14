@@ -5,6 +5,7 @@ import marshmallow_dataclass
 
 from scp.constants import FILE_PATH
 
+
 @dataclass
 class Weapon:
     id: int

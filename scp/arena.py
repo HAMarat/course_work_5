@@ -33,17 +33,22 @@ class Arena(metaclass=ArenaSingleton):
             return enemy_result
 
     def _check_hp(self):
+        self.player.hp = round(self.player.hp, 1)
+        self.enemy.hp = round(self.enemy.hp, 1)
         if self.player.hp > 0 and self.enemy.hp > 0:
             return None
 
         if self.player.hp <= 0 and self.enemy.hp <= 0:
             self.battle_result = "Ничья"
-        elif self.player.hp > 0 >= self.enemy.hp:
+        elif self.player.hp > 0:
             self.battle_result = "Победил игрок"
         else:
             self.battle_result = "Победил противник"
 
-        return self._end_game
+        self.player.stamina = round(self.player.stamina)
+        self.enemy.stamina = round(self.enemy.stamina)
+
+        return self._end_game()
 
     def _end_game(self):
         self._instance = {}
@@ -59,6 +64,7 @@ class Arena(metaclass=ArenaSingleton):
 
             else:
                 unit.stamina += self.STAMINA_PER_ROUND
+                unit.stamina = round(unit.stamina, 1)
 
     def player_hit(self):
         result = self.player.hit(self.enemy)
