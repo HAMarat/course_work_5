@@ -1,12 +1,11 @@
 FROM python:3.11-slim
 
-WORKDIR /src
+WORKDIR /
 COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-COPY /src .
+COPY . ./scp
 COPY .gitignore .
-COPY ./instance/movies.db ../instance/
 
-CMD flask --app app run -h 0.0.0.0 -p 80
+CMD flask --app ./scp/app run -h 0.0.0.0 -p 80
